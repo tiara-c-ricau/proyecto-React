@@ -9,6 +9,7 @@ function Navbar() {
             <a className='nav' href="">Originales</a>
             <a className='nav' href="">Mas vendidos</a>
             <a className='nav' href="">Ofertas</a>
+            <CartWidget/>
         </nav>
     )
 }
