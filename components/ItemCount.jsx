@@ -1,6 +1,18 @@
 import {useState} from "react"
+import ItemListContainer from "./ItemListContainer"
 
-const ItemCount = () =>{
+function ItemCount({ productos }) {
+    return (
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1.5rem', marginTop: '2rem' }}> {productos.map((producto)=> (
+            <Count key={producto.id} item={producto} />
+        ))}
+
+
+        </div>
+    );
+}
+export default ItemCount;
+/* const ItemCount = () =>{
 
 const [count, setCount]= useState(1)
 }
@@ -13,7 +25,7 @@ const restar = ()=> {
     setCount(count - 1)
 }  
 
-
+ */
 /* {
     return (
         <div>
@@ -24,4 +36,4 @@ const restar = ()=> {
     )
 } */
 
-export default ItemCount
+/* export default ItemCount */

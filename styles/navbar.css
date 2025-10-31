@@ -1,9 +1,11 @@
 .barra-nav{
-    background-color: bisque;
+    background-color: gainsboro;
     padding: 0,5rem;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 }
 
 .nav{
@@ -11,10 +13,12 @@
     font-family: 'Times New Roman', Times, serif;
     font-size: medium;
     font-style: italic;
-    padding: 1rem;
+    padding: 0,5rem;
+    transition: color 0.2 ease;
 }
 
 .logo {
-    width: 8rem;
+    width: 10rem;
     padding: 0,5rem;
+    border-radius: 3rem;
 }

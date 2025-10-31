@@ -1,8 +1,32 @@
 import { useEffect } from "react";
 import { getProductos } from "../mock/AsyncServices";
+import { useParams } from 'react-router-dom';
+import ItemDetail from "./ItemDetail";
 
+function ItemListContainer({ greeting }) {
+  const [productos, setProductos] = useState([]);
+  const { categoryId } = useParams(); 
 
-const ItemListContainer = (props)=>{
+  useEffect(() => {
+    getProductos().then((data) => {
+      if (categoryId) {
+        setProductos(data.filter((p) => p.category === categoryId));
+      } else {
+        setProductos(data);
+      }
+    });
+  }, [categoryId]);
+
+  return (
+    <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <h2>{greeting}</h2>
+      <ItemList productos={productos} />
+    </div>
+  );
+}
+
+export default ItemListContainer;
+/* const ItemListContainer = (props)=>{
 
     useEffect(()=>{
         getProductos()
@@ -17,4 +41,4 @@ const ItemListContainer = (props)=>{
     );
 }
 
-export default ItemListContainer
+export default ItemListContainer */
