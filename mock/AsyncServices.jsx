@@ -12,8 +12,14 @@ const productosData = [
   { id: '08', name: 'Nike', description: 'running', stock: 30, price: 200000, img: '/nikerunning.jpg', category: 'nuevos ingresos' },
 ];
 
-// Función que simula carga de datos
-export const getProductos = () => {
+ return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(productosData);
+    }, 2000);
+  });
+
+
+/* export const getProductos = () => {
   let error = false;
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -26,11 +32,11 @@ export const getProductos = () => {
   });
 };
 
-// Componente React con loading
+
 function AsyncServices() {
   const [productos, setProductos] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ estado para loading
-  const [error, setError] = useState(null); // ✅ estado para errores
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     getProductos()
@@ -73,6 +79,6 @@ function AsyncServices() {
       </div>
     </div>
   );
-}
+} */
 
 export default AsyncServices;

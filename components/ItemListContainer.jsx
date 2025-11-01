@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { getProductos } from "../mock/AsyncServices";
 import { useParams } from 'react-router-dom';
-import ItemDetail from "./ItemDetail";
+import React, { useState } from 'react';
+import ItemList from "./ItemList";
 
 function ItemListContainer({ greeting }) {
   const [productos, setProductos] = useState([]);
@@ -26,19 +27,3 @@ function ItemListContainer({ greeting }) {
 }
 
 export default ItemListContainer;
-/* const ItemListContainer = (props)=>{
-
-    useEffect(()=>{
-        getProductos()
-        .then((res)=> console.log(res,respuesta))
-        .catch((error)=> console.log(error))
-    },[])
-    
-    return(
-        <div>
-            <h1>{props.saludo}</h1>
-        </div>
-    );
-}
-
-export default ItemListContainer */
