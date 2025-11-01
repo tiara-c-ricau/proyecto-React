@@ -1,29 +1,14 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ItemListContainer from '../components/ItemListContainer';
 import Navbar from '../components/Navbar';
 import './App.css';
-import { getProductos } from '../mock/AsyncServices';
-import ItemCount from '../components/ItemCount';
 import ItemDetailContainer from '../components/ItemDetailContainer';
-import './App.css';
 
 function App() {
-  const [cartCount, setCartCount] = useState(0);
-    const [productos, setProductos] = useState([]);
 
-    
-  useEffect(() => {
-    getProductos().then((data) => setProductos(data));
-  }, []);
-
-   const handleAddToCart = () => {
-    setCartCount(prev => prev + 1);
-  };
-
-  return (
+    return (
     <BrowserRouter>
-    <Navbar cartCount={cartCount}/>
+    <Navbar />
 
     <Routes> 
       <Route path='/' element={<ItemListContainer saludo='Bienvenido!' />}/> 
@@ -38,7 +23,7 @@ function App() {
 
       </Routes> 
 
-      <ItemCount productos={productos} />
+     
     </BrowserRouter>
 
   )

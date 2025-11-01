@@ -1,4 +1,37 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { getProductos } from '../mock/AsyncServices';
+import ItemList from './ItemList';
+
+function ItemListContainer() {
+  const [productos, setProductos] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    getProductos().then((data) => setProductos(data));
+  }, []);
+
+  const handleAddToCart = (producto) => {
+    setCart((prevCart) => [...prevCart, producto]);
+    console.log('Producto agregado:', producto);
+  };
+
+  return (
+    <div>
+      <h2 style={{ textAlign: 'center' }}>Catálogo</h2>
+      <ItemList productos={productos} onAddToCart={handleAddToCart} />
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <h3>🛒 Carrito: {cart.length} productos</h3>
+      </div>
+    </div>
+  );
+}
+
+export default ItemListContainer;
+
+
+
+
+/* import { useEffect } from "react";
 import { getProductos } from "../mock/AsyncServices";
 import { useParams } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -26,4 +59,4 @@ function ItemListContainer({ greeting }) {
   );
 }
 
-export default ItemListContainer;
+export default ItemListContainer; */
