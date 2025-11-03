@@ -1,5 +1,4 @@
 import '../components/Navbar'
-import ItemListContainer from './ItemListContainer';
 
 const CartWidget = ({ cartCount }) => {
   return (

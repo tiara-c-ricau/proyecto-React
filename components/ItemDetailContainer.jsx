@@ -27,7 +27,7 @@ function ItemDetailContainer() {
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
-      {item ? <ItemDetail item={item} /> : <p>Cargando detalles del producto...</p>}
+      <ItemDetail item={item} /> : <p>Cargando detalles del producto...</p>
     </div>
   );
 }

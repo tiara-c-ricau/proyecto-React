@@ -21,3 +21,14 @@ export const getProductos = () => {
     }, 2000);
   });
 };
+
+export const getOneProduct = (id)=>{
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            //harcodeado
+            // resolve(productos[0])
+            let prod= productos.find((producto)=> producto.id === id)
+            resolve(prod)
+        },2000)
+    })
+}

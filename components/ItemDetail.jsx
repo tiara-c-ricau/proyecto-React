@@ -1,4 +1,5 @@
 import React from "react";
+import ItemCount from "./ItemCount";
 
 function ItemDetail({ item }) {
   return (
@@ -20,6 +21,8 @@ function ItemDetail({ item }) {
       />
       <p>{item.description}</p>
       <p style={{ fontWeight: "bold" }}>Precio: ${item.price}</p>
+      <p>Stock disponible: {item.stock}</p> 
+      <ItemCount stock={item.stock}/>
     </div>
   );
 }
