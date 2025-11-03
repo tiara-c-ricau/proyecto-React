@@ -6,11 +6,24 @@ import { useParams } from 'react-router-dom';
 function ItemListContainer() {
   const [productos, setProductos] = useState([]);
   const [cart, setCart] = useState([]);
+   const { categoryId } = useParams();
 
-  useEffect(() => {
-    getProductos().then((data) => setProductos(data));
+  useEffect(() => { getProductos().then((data) => {
+      // Si hay categoryId, filtramos; si no, mostramos todo
+      if (categoryId) {
+        const productosFiltrados = data.filter(
+          (prod) => prod.category.toLowerCase() === categoryId.toLowerCase()
+        );
+        setProductos(productosFiltrados);
+      } else {
+        setProductos(data);
+      }
+    });
+  }, [categoryId]);
+
+    /* getProductos().then((data) => setProductos(data));
   }, []);
-
+ */
   const handleAddToCart = (producto) => {
     setCart((prevCart) => [...prevCart, producto]);
     console.log('Producto agregado:', producto);

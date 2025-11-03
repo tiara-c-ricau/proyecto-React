@@ -16,8 +16,6 @@ function Navbar({ cartCount}) {
         <Link className="nav" to="/categoria/ofertas">Ofertas</Link>
       </div>
 
-      {}
-      <CartWidget cartCount={5} />
     </nav>
   );
 }
