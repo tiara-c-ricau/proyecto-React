@@ -1,4 +1,4 @@
-import '../components/Navbar'
+import './Navbar'
 
 const CartWidget = ({ cartCount }) => {
   return (

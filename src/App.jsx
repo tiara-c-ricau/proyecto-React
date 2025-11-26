@@ -1,10 +1,19 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ItemListContainer from '../components/ItemListContainer';
-import Navbar from '../components/Navbar';
+import ItemListContainer from './components/ItemListContainer';
+import Navbar from './components/Navbar';
 import './App.css';
-import ItemDetailContainer from '../components/ItemDetailContainer';
-
+import ItemDetailContainer from './components/ItemDetailContainer';
+import { useEffect } from 'react';
+import { getItems } from './assets/firebase';
+import Error from './components/Error';
+import { CartProvider } from './context/CartContext';
+import Checkout from './components/Checkout';
+import CheckoutRHF from './components/CheckoutRHF';
 function App() {
+
+  useEffect(()=>{
+    getItems();
+  },[])
 
     return (
     <BrowserRouter>
