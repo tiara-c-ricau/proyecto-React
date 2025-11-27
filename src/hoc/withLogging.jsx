@@ -1,5 +1,3 @@
-//funcion HOC
-
 import { useEffect } from "react"
 
 const withLogging = (WrappedComponent) =>{

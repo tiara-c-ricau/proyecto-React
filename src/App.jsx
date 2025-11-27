@@ -4,11 +4,13 @@ import Navbar from './components/Navbar';
 import './App.css';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import { useEffect } from 'react';
-import { getItems } from './assets/firebase';
+import { getItems } from './service/firebase';
 import Error from './components/Error';
 import { CartProvider } from './context/CartContext';
 import Checkout from './components/Checkout';
 import CheckoutRHF from './components/CheckoutRHF';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
 
   useEffect(()=>{

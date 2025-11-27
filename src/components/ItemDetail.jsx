@@ -46,22 +46,6 @@ const stockActualizado = detalle.stock - itemQuantity(detalle.id)
   )
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {purchase ? <Link className='btn btn-dark' to='/cart'>Terminar compra</Link> : <ItemCount stock={detalle.stock} onAdd={onAdd}/>}
-
         
         
         
