@@ -14,7 +14,6 @@ const CartView = () => {
             if(result.isConfirmed){
                 clear()
             }else if(result.isDenied){
-                //poner algo si rechaza
             }
         })
     }

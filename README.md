@@ -1,16 +1,61 @@
-# React + Vite
+# 🛒 E-Commerce React – Proyecto Final
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un e-commerce desarrollado como **proyecto final** del curso de React.  
+La aplicación permite navegar productos, ver detalles, añadirlos al carrito y completar una compra mediante un formulario validado.
 
-Currently, two official plugins are available:
+Toda la información del catálogo se obtiene desde **Firebase Firestore**, y las órdenes de compra quedan registradas en la base de datos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## 📌 Características principales
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✔ Navegación (SPA con React Router)
+- Rutas dinámicas para categorías (`/category/:id`) y productos (`/item/:id`).
+- Navegación sin recarga (SPA real).
+- Uso de `NavLink` para indicar la ruta activa.
+- Manejo de rutas inexistentes con feedback.
 
-## Expanding the ESLint configuration
+### ✔ Catálogo y Detalle de Productos
+- Importación de datos desde **Firebase Firestore**.
+- Lectura mediante `getDocs`, `getDoc`, `collection`, `query`, `where`.
+- Renderizado condicionado y loaders.
+- Ocultamiento automático del `ItemCount` luego de agregar al carrito.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ✔ Carrito de Compras (Context API)
+- Manejo global del estado con `CartContext`.
+- Funciones:
+  - `addItem`
+  - `removeItem`
+  - `clearCart`
+  - `getTotal`
+  - `getQuantity`
+- Ícono en el `CartWidget` con cantidad total de productos.
+- Persistencia del estado durante la sesión.
+
+### Checkout
+- Formulario validado con **React Hook Form**.
+- Validación de campos, email duplicado, mensajes de error personalizados.
+- Generación de orden en Firestore.
+- Feedback visual y número de pedido.
+- Limpieza automática del carrito.
+
+---
+
+## Tecnologías utilizadas
+
+### **Frontend**
+- React JS
+- React Router DOM
+- Context API
+- React Hook Form
+- Bootstrap 5
+
+### **Backend / Base de datos**
+- Firebase Firestore
+
+### **Herramientas de compilación**
+- Vite
+
+
+## Nombre: <TIARA>
+Curso: React – Proyecto Final
+

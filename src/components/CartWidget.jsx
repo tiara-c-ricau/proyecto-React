@@ -1,4 +1,22 @@
-import './Navbar'
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
+
+function CartWidget() {
+
+  const { cart } = useContext(CartContext);
+
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  return (
+    <Link to="/cart" className="cart-widget">
+      🛒 <span>{totalItems}</span>
+    </Link>
+  );
+}
+
+export default CartWidget;
+/* import './Navbar'
 
 const CartWidget = ({ cartCount }) => {
   return (
@@ -28,6 +46,6 @@ const CartWidget = ({ cartCount }) => {
   );
 };
 
-export default CartWidget;
+export default CartWidget; */
 
 

@@ -1,76 +1,17 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useContext } from 'react';
 import { getProductos } from '../mock/AsyncServices';
 import ItemList from './ItemList';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'; 
+import { CartContext } from "../context/CartContext";
 
-function ItemListContainer() {
-  const [productos, setProductos] = useState([]);
-  const [cart, setCart] = useState([]);
-   const { categoryId } = useParams();
+const ItemListContainer = ({ productos }) => {
+  const { addItem } = useContext(CartContext);
 
-  useEffect(() => { getProductos().then((data) => {
-      // Si hay categoryId, filtramos; si no, mostramos todo
-      if (categoryId) {
-        const productosFiltrados = data.filter(
-          (prod) => prod.category.toLowerCase() === categoryId.toLowerCase()
-        );
-        setProductos(productosFiltrados);
-      } else {
-        setProductos(data);
-      }
-    });
-  }, [categoryId]);
-
-    /* getProductos().then((data) => setProductos(data));
-  }, []);
- */
-  const handleAddToCart = (producto) => {
-    setCart((prevCart) => [...prevCart, producto]);
-    console.log('Producto agregado:', producto);
+  const handleAddToCart = (product) => {
+    addItem(product, 1); // agrega 1 unidad
   };
 
-  return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>Catálogo</h2>
-      <ItemList productos={productos} onAddToCart={handleAddToCart} />
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <h3>🛒 Carrito: {cart.length} productos</h3>
-      </div>
-    </div>
-  );
-}
+  return <ItemList productos={productos} onAddToCart={handleAddToCart} />;
+};
 
 export default ItemListContainer;
-
-
-
-
-/* import { useEffect } from "react";
-import { getProductos } from "../mock/AsyncServices";
-import { useParams } from 'react-router-dom';
-import React, { useState } from 'react';
-import ItemList from "./ItemList";
-
-function ItemListContainer({ greeting }) {
-  const [productos, setProductos] = useState([]);
-  const { categoryId } = useParams(); 
-
-  useEffect(() => {
-    getProductos().then((data) => {
-      if (categoryId) {
-        setProductos(data.filter((p) => p.category === categoryId));
-      } else {
-        setProductos(data);
-      }
-    });
-  }, [categoryId]);
-
-  return (
-    <div style={{ textAlign: 'center', padding: '2rem' }}>
-      <h2>{greeting}</h2>
-      <ItemList productos={productos} />
-    </div>
-  );
-}
-
-export default ItemListContainer; */
