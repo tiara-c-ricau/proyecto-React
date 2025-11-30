@@ -16,24 +16,15 @@ Toda la información del catálogo se obtiene desde **Firebase Firestore**, y la
 
 ### ✔ Catálogo y Detalle de Productos
 - Importación de datos desde **Firebase Firestore**.
-- Lectura mediante `getDocs`, `getDoc`, `collection`, `query`, `where`.
 - Renderizado condicionado y loaders.
-- Ocultamiento automático del `ItemCount` luego de agregar al carrito.
+
 
 ### ✔ Carrito de Compras (Context API)
 - Manejo global del estado con `CartContext`.
-- Funciones:
-  - `addItem`
-  - `removeItem`
-  - `clearCart`
-  - `getTotal`
-  - `getQuantity`
 - Ícono en el `CartWidget` con cantidad total de productos.
 - Persistencia del estado durante la sesión.
 
 ### Checkout
-- Formulario validado con **React Hook Form**.
-- Validación de campos, email duplicado, mensajes de error personalizados.
 - Generación de orden en Firestore.
 - Feedback visual y número de pedido.
 - Limpieza automática del carrito.
