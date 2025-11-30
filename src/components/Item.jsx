@@ -1,22 +1,42 @@
-import React from 'react'
+import React, { useContext } from "react";
 import {  Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { CartContext } from "../context/CartContext";
 
-const Item = ({prod}) => {
-    console.log('item', prod.id)
+const Item = ({ producto }) => {
+  const { addToCart } = useContext(CartContext);
+
+  const handleAdd = () => {
+    addToCart(producto, 1);
+  };
+
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={prod.img} />
-      <Card.Body>
-        <Card.Title>{prod.name}</Card.Title>
-        <Card.Text>
-          ${prod.price},00
-        </Card.Text>
-        <Link className='btn btn-dark' to={`/item/${prod.id}`}>Ver Más</Link>
-         {/* <Link className='btn btn-dark' to={'/item/'+prod.id}>Ver Más</Link> */}
-      </Card.Body>
-    </Card>
-  )
-}
+    <div
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        padding: "10px",
+        width: "200px",
+        textAlign: "center",
+      }}
+    >
+      <img
+        src={producto.img}
+        alt={producto.name}
+        style={{ width: "100%", borderRadius: "8px" }}
+      />
+      <h3>{producto.name}</h3>
+      <p>{producto.description}</p>
+      <p>${producto.price.toLocaleString()}</p>
+      <p>Stock: {producto.stock}</p>
 
-export default Item
+      <div style={{ display: "flex", justifyContent: "space-around", marginTop: "10px", color: "black" }}>
+        <button className="add" onClick={handleAdd}>Agregar al carrito</button>
+        <Link to={`/producto/${producto.id}`}>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default Item;

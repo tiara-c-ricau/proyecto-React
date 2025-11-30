@@ -1,12 +1,13 @@
-import React from 'react'
-import { Spinner } from 'react-bootstrap'
+import React from 'react';
 
-const LoaderComponent = () => {
-  return (
-    <div style={{width:'100%', height:'85vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <Spinner animation='grow' variant='dark'/>
-    </div>
-  )
-}
 
-export default LoaderComponent
+const LoaderComponent = () => (
+<div style={{textAlign:'center', padding:'2rem'}}>
+<div className="spinner-border" role="status">
+<span className="visually-hidden">Loading...</span>
+</div>
+</div>
+);
+
+
+export default LoaderComponent;

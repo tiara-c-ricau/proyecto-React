@@ -1,51 +1,42 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
-function CartWidget() {
-
-  const { cart } = useContext(CartContext);
-
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+const CartWidget = () => {
+  const { getTotalItems } = useContext(CartContext);
+  const totalItems = getTotalItems();
 
   return (
-    <Link to="/cart" className="cart-widget">
-      🛒 <span>{totalItems}</span>
-    </Link>
-  );
-}
-
-export default CartWidget;
-/* import './Navbar'
-
-const CartWidget = ({ cartCount }) => {
-  return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      backgroundColor: "#222",
-      padding: "5px 10px",
-      borderRadius: "8px",
-      cursor: "pointer"
-    }}>
-      <span style={{ fontSize: "22px", color: "white" }}>🛒</span>
-      {cartCount > 0 && (
-        <span style={{
-          backgroundColor: "red",
+    <Link to="/cart" style={{ textDecoration: "none" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          backgroundColor: "#222",
+          padding: "5px 10px",
+          borderRadius: "8px",
+          cursor: "pointer",
           color: "white",
-          borderRadius: "50%",
-          padding: "3px 6px",
-          fontSize: "12px",
-          fontWeight: "bold"
-        }}>
-          {cartCount}
-        </span>
-      )}
-    </div>
+        }}
+      >
+        <span style={{ fontSize: "22px" }}>🛒</span>
+        {totalItems > 0 && (
+          <span
+            style={{
+              backgroundColor: "red",
+              borderRadius: "50%",
+              padding: "2px 8px",
+              fontSize: "14px",
+              fontWeight: "bold",
+            }}
+          >
+            {totalItems}
+          </span>
+        )}
+      </div>
+    </Link>
   );
 };
 
-export default CartWidget; */
-
-
+export default CartWidget;

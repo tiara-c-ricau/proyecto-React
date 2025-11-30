@@ -1,138 +1,81 @@
-import React, { useContext, useState } from 'react';
-import { CartContext } from '../context/CartContext';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../service/firebase';
-import { Link } from 'react-router-dom';
-import EmptyCart from './EmptyCart';
+import { useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
-const Checkout = () => {
+function Checkout() {
+  const { cart, getTotalPrice, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
   const [buyer, setBuyer] = useState({
     name: "",
-    lastname: "",
-    mail: "",
-    address: ""
+    phone: "",
+    email: "",
   });
 
-  const [repeatMail, setRepeatMail] = useState("");
-  const [error, setError] = useState(null);
-  const [orderId, setOrderId] = useState(null);
-
-  const { cart, totalPrice, clearCart } = useContext(CartContext);
-
-  const handleInputChange = (e) => {
-    setBuyer({
-      ...buyer,
-      [e.target.name]: e.target.value
-    });
+  const handleChange = (e) => {
+    setBuyer({ ...buyer, [e.target.name]: e.target.value });
   };
 
-  const finalizarCompra = async (e) => {
+  const generateOrder = async (e) => {
     e.preventDefault();
 
-    // Validaciones
-    if (!buyer.name || !buyer.lastname || !buyer.mail || !buyer.address) {
-      setError("Todos los campos son obligatorios");
-      return;
-    }
+    const db = getFirestore();
+    const ordersCollection = collection(db, "orders");
 
-    if (buyer.mail !== repeatMail) {
-      setError("Los correos no coinciden");
-      return;
-    }
-
-    setError(null);
-
-    // Orden a enviar
     const order = {
-      comprador: buyer,
+      buyer,
       items: cart,
-      total: totalPrice(),
-      fecha: serverTimestamp(),
+      total: getTotalPrice(),
+      date: new Date(),
     };
 
-    try {
-      const ventasRef = collection(db, "orders");
-      const res = await addDoc(ventasRef, order);
+    const docRef = await addDoc(ordersCollection, order);
 
-      setOrderId(res.id);
-      clearCart();
-    } catch (err) {
-      console.error(err);
-      setError("Hubo un error al procesar la compra");
-    }
+    clearCart();
+
+    // Redirigir a página de agradecimiento pasando el orderId
+    navigate(`/gracias/${docRef.id}`);
   };
 
-  if (!cart.length && !orderId) {
-    return <EmptyCart />;
-  }
-
   return (
-    <>
-      {orderId ? (
-        <div style={{ padding: "20px" }}>
-          <h2>¡Gracias por tu compra!</h2>
-          <h4>Tu número de orden es: <strong>{orderId}</strong></h4>
-          <Link className="btn btn-dark mt-3" to="/">Volver al Home</Link>
-        </div>
-      ) : (
-        <div style={{ padding: "20px" }}>
-          <h1>Completa tus datos</h1>
+    <div className="container mt-5">
+      <h2>Datos del comprador</h2>
 
-          {error && (
-            <span style={{ color: "red", fontWeight: "bold" }}>{error}</span>
-          )}
+      <form onSubmit={generateOrder} className="mt-4">
+        <input
+          className="form-control mb-3"
+          type="text"
+          name="name"
+          placeholder="Nombre"
+          onChange={handleChange}
+          required
+        />
 
-          <form
-            className="p-4 border rounded shadow-sm bg-light"
-            onSubmit={finalizarCompra}
-          >
-            <input
-              className="form-control my-2"
-              name="name"
-              type="text"
-              placeholder="Nombre"
-              onChange={handleInputChange}
-            />
+        <input
+          className="form-control mb-3"
+          type="text"
+          name="phone"
+          placeholder="Teléfono"
+          onChange={handleChange}
+          required
+        />
 
-            <input
-              className="form-control my-2"
-              name="lastname"
-              type="text"
-              placeholder="Apellido"
-              onChange={handleInputChange}
-            />
+        <input
+          className="form-control mb-3"
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
 
-            <input
-              className="form-control my-2"
-              name="address"
-              type="text"
-              placeholder="Dirección"
-              onChange={handleInputChange}
-            />
-
-            <input
-              className="form-control my-2"
-              name="mail"
-              type="email"
-              placeholder="Correo electrónico"
-              onChange={handleInputChange}
-            />
-
-            <input
-              className="form-control my-2"
-              type="email"
-              placeholder="Repetí tu correo"
-              onChange={(e) => setRepeatMail(e.target.value)}
-            />
-
-            <button type="submit" className="btn btn-success mt-3">
-              Finalizar Compra
-            </button>
-          </form>
-        </div>
-      )}
-    </>
+        <button className="btn btn-dark" type="submit">
+          Finalizar compra
+        </button>
+      </form>
+    </div>
   );
-};
+}
 
 export default Checkout;

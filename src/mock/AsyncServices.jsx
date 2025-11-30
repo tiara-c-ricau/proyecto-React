@@ -27,7 +27,7 @@ export const getOneProduct = (id)=>{
         setTimeout(()=>{
             //harcodeado
             // resolve(productos[0])
-            let prod= productos.find((producto)=> producto.id === id)
+            let prod= productosData.find((producto)=> producto.id === id)
             resolve(prod)
         },2000)
     })

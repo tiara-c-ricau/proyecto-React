@@ -1,52 +1,33 @@
-import {useState, useEffect} from 'react'
-
-const ItemCount = ({stock}) => {
-const [count, setCount]= useState(1)
-const [compra, setCompra]= useState(false)
+import React, { useState } from 'react';
 
 
-const sumar = ()=>{
-    if(count < stock){
+const ItemCount = ({ stock = 10, initial = 1, onAdd }) => {
+const [cantidad, setCantidad] = useState(initial);
+const [added, setAdded] = useState(false);
 
-        setCount(count + 1)
-    }
-}
 
-const restar = ()=>{
-    if(count > 0){
-        setCount(count - 1)
-    }
-}
-const ejecutarCompra = ()=>{
-    onAdd(count)
-}
-console.log('ItemCount')
+const sumar = () => setCantidad(c => Math.min(c + 1, stock));
+const restar = () => setCantidad(c => Math.max(c - 1, 1));
+const confirmar = () => {
+onAdd(cantidad);
+setAdded(true);
+};
 
-useEffect(()=>{
-    console.log('me ejecuto siempre!')
-})
 
-useEffect(()=>{
-},[])
-    
+if (added) return <button className="btn btn-success" disabled>Agregado</button>;
 
-useEffect(()=>{
-    if(compra !== false){ 
-        console.log('se ejecuta cuando monta el componente y siempre que compra cambie', compra)
-    }
-},[compra])
 
-  return (
-    <>
-    <div>
-        <button className='btn btn-danger' onClick={restar} disabled={count === 0}>-</button>
-        <span className='btn'>{count}</span>
-        <button className='btn btn-success' onClick={sumar}>+</button>
-    </div>
-    <button className='btn btn-primary' onClick={ejecutarCompra}>Comprar</button>
-    </>
-  )
-}
+return (
+<div style={{marginTop:'8px'}}>
+<div style={{display:'flex', gap:'8px', alignItems:'center'}}>
+<button className="btn btn-outline-secondary" onClick={restar}>-</button>
+<span>{cantidad}</span>
+<button className="btn btn-outline-secondary" onClick={sumar}>+</button>
+</div>
+<button className="btn btn-primary mt-2" onClick={confirmar}>Agregar</button>
+</div>
+);
+};
 
-export default ItemCount
 
+export default ItemCount;

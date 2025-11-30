@@ -1,48 +1,47 @@
-import React, { useContext } from 'react'
-import { CartContext } from '../context/CartContext'
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const CartView = () => {
-    const {cart, removeItem, clear}= useContext(CartContext)
-    const preConfirm = ()=> {
-        Swal.fire({
-            icon: 'question',
-            title:'¿Estas seguro de borrar todo?',
-            showDenyButton:true,
-            denyButtonText:'No',
-            confirmButtonText:'Si'
-        }).then((result)=>{
-            if(result.isConfirmed){
-                clear()
-            }else if(result.isDenied){
-            }
-        })
-    }
+const { cart, removeItem, clearCart, getTotalPrice } = useContext(CartContext);
+const navigate = useNavigate();
 
-  return (
-    <div>
-        <h1>Tu carrito 🛒</h1>
-        <div>
-            {
-                cart.map((compra)=>(
-                    <div key={compra.id} style={{display:'flex', justifyContent:'space-between', alignItems:'center', width:'100%', padding:'2rem'}} >
-                        <img src={compra.img} alt={compra.name} style={{width:'9rem'}}/>
-                        <span>{compra.name}</span>
-                         <span>${compra.price},00</span>
-                          <span>cantidad: {compra.quantity}</span>
-                           <span>precio final: ${compra.quantity * compra.price},00</span>
-                           <button className='btn btn-danger' onClick={()=> removeItem(compra.id)}>X</button>
-                    </div>
-                ))
-            }
-        </div>
-        {/* crear una funcion que devuelva el total a pagar */}
-        <span>Total a pagar: $</span>
-        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', width:'80%', padding:'2rem'}}>
-            <button className='btn btn-danger' onClick={clear}>Vaciar carrito</button>
-            <button className='btn btn-success'>Terminar compra</button>
-        </div>
-    </div>
-  )
-}
 
-export default CartView
+if (!cart.length) return <p>Tu carrito está vacío</p>;
+
+
+return (
+<div>
+<h1>Tu carrito 🛒</h1>
+<div>
+{cart.map(item => (
+<div key={item.id} style={{display:'flex', gap:'1rem', alignItems:'center', padding:'1rem'}}>
+<img src={item.img} alt={item.name} style={{width: '100px'}} />
+<div style={{flex:1}}>
+<h5>{item.name}</h5>
+<p>Cantidad: {item.quantity}</p>
+<p>Precio unitario: ${item.price}</p>
+<p>Subtotal: ${item.quantity * item.price}</p>
+</div>
+<div>
+<button className="btn btn-danger mb-2" onClick={() => removeItem(item.id)}>Eliminar</button>
+</div>
+</div>
+))}
+</div>
+
+
+<h3>Total a pagar: ${getTotalPrice()}</h3>
+
+
+<div style={{display:'flex', gap:'1rem'}}>
+<button className="btn btn-outline-danger" onClick={clearCart}>Vaciar carrito</button>
+<button className="btn btn-danger" onClick={() => navigate('/checkout')}>Terminar compra</button>
+</div>
+</div>
+);
+};
+
+
+export default CartView;

@@ -1,54 +1,37 @@
-import { Link } from 'react-router-dom';
-import '../styles/navbar.css';
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import CartWidget from './CartWidget';
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { CartContext } from '../context/CartContext';
 
-function Navbar() {
 
-  const { cart } = useContext(CartContext);
+const Navbar = () => {
+const { getTotalItems } = useContext(CartContext);
 
-  const cartCount = cart.reduce((acc, prod) => acc + prod.quantity, 0);
 
-  return (
-    <nav className="barra-nav">
-      <CartWidget cartCount={cartCount} />
+return (
+<nav className="navbar navbar-expand bg-dark navbar-dark px-3">
+<NavLink to="/" className="navbar-brand">Tienda NK</NavLink>
 
-      <Link to="/" className="logo-link">
-        <img src="../logo.tienda.jpg" alt="Logo de la tienda" className="logo" />
-      </Link>
+<div className="collapse navbar-collapse">
+<ul className="navbar-nav me-auto">
+<li className="nav-item"><NavLink to="/categoria/nuevos-ingresos" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Nuevos ingresos</NavLink></li>
+<li className="nav-item"><NavLink to="/categoria/originales" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Originales</NavLink></li>
+<li className="nav-item"><NavLink to="/categoria/mas-vendidos" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Más vendidos</NavLink></li>
+<li className="nav-item"><NavLink to="/categoria/ofertas" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Ofertas</NavLink></li>
+</ul>
 
-      <div className="nav-links">
-        <Link className="nav" to="/categoria/nuevos-ingresos">Nuevos ingresos</Link>
-        <Link className="nav" to="/categoria/originales">Originales</Link>
-        <Link className="nav" to="/categoria/mas-vendidos">Más vendidos</Link>
-        <Link className="nav" to="/categoria/ofertas">Ofertas</Link>
-      </div>
-    </nav>
-  );
-}
+
+<ul className="navbar-nav">
+<li className="nav-item">
+<NavLink to="/cart" className="nav-link">
+<CartWidget count={getTotalItems()} />
+</NavLink>
+</li>
+</ul>
+</div>
+</nav>
+);
+};
+
 
 export default Navbar;
-/* import { Link } from 'react-router-dom';
-import '../styles/navbar.css';
-import CartWidget from './CartWidget';
-
-function Navbar({ cartCount}) {
-  return (
-    <nav className="barra-nav">
-      <CartWidget cartCount={cartCount} />
-      <Link to="/" className="logo-link">
-        <img src="../logo.tienda.jpg" alt="Logo de la tienda" className="logo" />
-      </Link>
-      <div className="nav-links">
-        <Link className="nav" to="/categoria/nuevos-ingresos">Nuevos ingresos</Link>
-        <Link className="nav" to="/categoria/originales">Originales</Link>
-        <Link className="nav" to="/categoria/mas-vendidos">Más vendidos</Link>
-        <Link className="nav" to="/categoria/ofertas">Ofertas</Link>
-      </div>
-
-    </nav>
-  );
-}
-
-export default Navbar; */
