@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
-import {  Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const Item = ({ producto }) => {
-  const { addToCart } = useContext(CartContext);
-
-  const handleAdd = () => {
+  const { addItem } = useContext(CartContext);
+  
+  
+const handleAdd = () => {  
     addToCart(producto, 1);
-  };
+   };
+
 
   return (
     <div
@@ -21,19 +22,35 @@ const Item = ({ producto }) => {
       }}
     >
       <img
-        src={producto.img}
-        alt={producto.name}
+        src={producto.img || "/default.jpg"} // fallback si no hay imagen
+        alt={producto.name || "Producto"}
         style={{ width: "100%", borderRadius: "8px" }}
       />
+
       <h3>{producto.name}</h3>
       <p>{producto.description}</p>
-      <p>${producto.price.toLocaleString()}</p>
       <p>Stock: {producto.stock}</p>
+      <p>${producto.price ? producto.price.toLocaleString() : "0" }</p>
+      <p>Stock: {producto.stock ?? 0}</p>
 
-      <div style={{ display: "flex", justifyContent: "space-around", marginTop: "10px", color: "black" }}>
-        <button className="add" onClick={handleAdd}>Agregar al carrito</button>
-        <Link to={`/producto/${producto.id}`}>
-        </Link>
+      <div className="d-flex flex-column gap-2 mt-3" style={{ display: "flex", justifyContent: "space-around", marginTop: "8px" }}>
+
+        <button onClick={() => addItem(producto, 1)}className="btn btn-success"
+        style={{
+      fontWeight: "bold",
+      borderRadius: "2px",
+      boxShadow: "0 2px 3px rgba(0,0,0,0.2)",
+    }} 
+          >🛒 Agregar al carrito</button>
+
+
+       <Link to={`/detalle/${producto.id}`} className="btn btn-primary" style={{  fontWeight: "bold",
+      borderRadius: "2px",
+      boxShadow: "0 2px 3px rgba(0,0,0,0.2)",
+      textAlign: "center",}}
+       
+       > 🔍Ver detalle</Link>
+
       </div>
     </div>
   );

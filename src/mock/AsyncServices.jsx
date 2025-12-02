@@ -8,7 +8,6 @@ const productosData = [
   { id: '07', name: 'Nike', description: 'Masaje', stock: 2, price: 60000, img: '/nikemasaje.jpg', category: 'ofertas' },
   { id: '08', name: 'Nike', description: 'Running', stock: 30, price: 200000, img: '/nikerunning.jpg', category: 'nuevos ingresos' },
 ];
-
 export const getProductos = () => {
   let error = false;
   return new Promise((resolve, reject) => {
@@ -28,7 +27,7 @@ export const getOneProduct = (id)=>{
             //harcodeado
             // resolve(productos[0])
             let prod= productosData.find((producto)=> producto.id === id)
-            resolve(prod)
-        },2000)
-    })
-}
+            resolve(prod);
+        },2000);
+    });
+};

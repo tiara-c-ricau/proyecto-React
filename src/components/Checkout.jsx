@@ -7,72 +7,37 @@ function Checkout() {
   const { cart, getTotalPrice, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const [buyer, setBuyer] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  });
+  const [buyer, setBuyer] = useState({ name: "", phone: "", email: "", emailConfirm: "" });
 
-  const handleChange = (e) => {
-    setBuyer({ ...buyer, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setBuyer({ ...buyer, [e.target.name]: e.target.value });
 
   const generateOrder = async (e) => {
     e.preventDefault();
 
+    if (buyer.name.length < 3) return alert("El nombre debe tener al menos 3 caracteres.");
+    if (!/^\d+$/.test(buyer.phone)) return alert("El teléfono debe contener solo números.");
+    if (buyer.email !== buyer.emailConfirm) return alert("Los correos no coinciden.");
+
     const db = getFirestore();
     const ordersCollection = collection(db, "orders");
 
-    const order = {
-      buyer,
-      items: cart,
-      total: getTotalPrice(),
-      date: new Date(),
-    };
+    const order = { buyer, items: cart, total: getTotalPrice(), date: new Date() };
 
     const docRef = await addDoc(ordersCollection, order);
 
     clearCart();
-
-    // Redirigir a página de agradecimiento pasando el orderId
     navigate(`/gracias/${docRef.id}`);
   };
 
   return (
     <div className="container mt-5">
       <h2>Datos del comprador</h2>
-
-      <form onSubmit={generateOrder} className="mt-4">
-        <input
-          className="form-control mb-3"
-          type="text"
-          name="name"
-          placeholder="Nombre"
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          className="form-control mb-3"
-          type="text"
-          name="phone"
-          placeholder="Teléfono"
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          className="form-control mb-3"
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
-
-        <button className="btn btn-dark" type="submit">
-          Finalizar compra
-        </button>
+      <form onSubmit={generateOrder} className="d-flex flex-column gap-3 mt-4">
+        <input type="text" name="name" placeholder="Nombre" onChange={handleChange} required />
+        <input type="text" name="phone" placeholder="Teléfono" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="email" name="emailConfirm" placeholder="Confirmar email" onChange={handleChange} required />
+        <button type="submit" className="btn btn-dark">Finalizar compra</button>
       </form>
     </div>
   );

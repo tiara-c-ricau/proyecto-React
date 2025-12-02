@@ -1,38 +1,37 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProductos } from "../mock/AsyncServices";
 import ItemList from "./ItemList";
-import { CartContext } from "../context/CartContext";
 import LoaderComponent from "./LoaderComponent";
+
+const normalizeCategory = (str) => str.toLowerCase().replace(/\s+/g, '-');
 
 const ItemListContainer = () => {
   const { categoryId } = useParams();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { cart } = useContext(CartContext);
 
   useEffect(() => {
     setLoading(true);
     getProductos()
-      .then((data) => {
+      .then((res) => {
         if (categoryId) {
-          setProductos(data.filter((prod) => prod.category === categoryId));
+          const filtered = res.filter(
+            (producto) => normalizeCategory(producto.category) === categoryId
+          );
+          setProductos(filtered);
         } else {
-          setProductos(data);
+          setProductos(res);
         }
       })
       .finally(() => setLoading(false));
   }, [categoryId]);
 
-  return (
-    <div>
-      {loading ? (
-        <LoaderComponent />
-      ) : (
-        <ItemList productos={productos} />
-      )}
-    </div>
-  );
+  if (loading) return <LoaderComponent />;
+
+  return <ItemList productos={productos} />;
 };
 
 export default ItemListContainer;
+
+

@@ -7,7 +7,9 @@ const Gracias = () => {
   return (
     <div className="container mt-5 text-center">
       <h2>¡Gracias por tu compra! 🎉</h2>
-      <p>Tu número de orden es: <strong>{orderId}</strong></p>
+      <p>
+        Tu número de orden es: <strong>{orderId}</strong>
+      </p>
       <Link className="btn btn-dark mt-3" to="/">
         Volver al Home
       </Link>
