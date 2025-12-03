@@ -7,7 +7,8 @@ export const CartProvider = ({ children }) => {
 
   // Función oficial para agregar items al carrito
   const addItem = (item, quantity) => {
-    const existing = cart.find((p) => p.id === item.id);
+        if (!item || quantity <= 0) return;
+ const existing = cart.find((p) => p.id === item.id);
     if (existing) {
       setCart(
         cart.map((p) =>

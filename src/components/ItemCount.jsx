@@ -24,7 +24,7 @@ return (
 <span>{cantidad}</span>
 <button className="btn btn-outline-secondary" onClick={sumar}>+</button>
 </div>
-<button className="btn btn-primary mt-2" onClick={confirmar}>Agregar</button>
+<button className="btn btn-primary mt-2" onClick={() => onAdd(qty)} disabled={stock === 0}>Agregar</button>
 </div>
 );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProductos } from "../mock/AsyncServices";
+import { getItems } from "../service/firebase"
 import ItemList from "./ItemList";
 import LoaderComponent from "./LoaderComponent";
 
