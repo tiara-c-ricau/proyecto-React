@@ -11,6 +11,8 @@ function Checkout() {
 
   const handleChange = (e) => setBuyer({ ...buyer, [e.target.name]: e.target.value });
 
+  if (cart.length === 0) return alert("El carrito está vacío");
+
   const generateOrder = async (e) => {
     e.preventDefault();
 

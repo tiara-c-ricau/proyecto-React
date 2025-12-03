@@ -13,17 +13,24 @@ const ItemDetailContainer = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+  setLoading(true);
+  getProductById(id)
+    .then(res => setDetalle(res))
+    .catch(err => console.error(err))
+    .finally(() => setLoading(false));
+}, [id]);
+ /* useEffect(() => {
     setLoading(true);
     getOneProduct(id)
       .then(res => setDetalle(res))
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id]); */
 
   if (loading) return <LoaderComponent />;
   if (!detalle) return <p>Producto no encontrado</p>;
 
-  return <ItemDetail detalle={detalle} onAddToCart={(p, qty) => addToCart(p, qty)} />;
+  return <ItemDetail detalle={detalle} onAddToCart={(p, qty) => addItem(p, qty)} />;
 };
 
 export default ItemDetailContainer;
