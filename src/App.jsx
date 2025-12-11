@@ -10,6 +10,7 @@ import Checkout from './components/Checkout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Gracias from './components/Gracias'; 
 import { CartProvider } from "./context/CartContext";
+import "./service/firebaseConfig";
 
 
 function App() {

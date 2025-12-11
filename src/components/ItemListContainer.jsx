@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProductos } from "../mock/AsyncServices";
-import { getItems } from "../service/firebase"
+import { getItems } from "../service/firebase"; 
 import ItemList from "./ItemList";
 import LoaderComponent from "./LoaderComponent";
 
-const normalizeCategory = (str) => str.toLowerCase().replace(/\s+/g, '-');
+const normalizeCategory = (str) =>
+  str.toLowerCase().replace(/\s+/g, "-");
 
 const ItemListContainer = () => {
   const { categoryId } = useParams();
@@ -14,17 +14,9 @@ const ItemListContainer = () => {
 
   useEffect(() => {
     setLoading(true);
-    getProductos()
-      .then((res) => {
-        if (categoryId) {
-          const filtered = res.filter(
-            (producto) => normalizeCategory(producto.category) === categoryId
-          );
-          setProductos(filtered);
-        } else {
-          setProductos(res);
-        }
-      })
+
+    getItems(categoryId) // 🔥 ahora pide directo a Firestore
+      .then((res) => setProductos(res))
       .finally(() => setLoading(false));
   }, [categoryId]);
 
