@@ -1,13 +1,4 @@
-import { 
-  getFirestore, 
-  collection, 
-  getDocs, 
-  query, 
-  where,
-  doc,
-  getDoc
-} from "firebase/firestore";
-
+import { getFirestore, collection, getDocs, doc, getDoc, query, where } from "firebase/firestore";
 
 export const getItems = async (categoryId) => {
   const db = getFirestore();
@@ -21,19 +12,29 @@ export const getItems = async (categoryId) => {
 
   const snapshot = await getDocs(consulta);
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  return snapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      precio: Number(data.precio), // por si acaso
+    };
+  });
 };
-
 
 export const getProductById = async (id) => {
   const db = getFirestore();
-  const docRef = doc(db, "items", id);
-  const docSnap = await getDoc(docRef);
+  const ref = doc(db, "items", id);
 
-  if (!docSnap.exists()) return null;
+  const snapshot = await getDoc(ref);
 
-  return { id: docSnap.id, ...docSnap.data() };
+  if (!snapshot.exists()) return null;
+
+  const data = snapshot.data();
+
+  return {
+    id: snapshot.id,
+    ...data,
+    precio: Number(data.precio),
+  };
 };

@@ -14,13 +14,12 @@ const ItemDetail = ({ detalle, onAddToCart }) => {
   return (
     <div className="card p-4" style={{ borderRadius: 8 }}>
       <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-        <img src={detalle.img || "/default.jpg"} alt={detalle.name} style={{ width: 300, borderRadius: 8 }} />
+        <img src={detalle.img || "/default.jpg"} alt={detalle.nombre} style={{ width: 300, borderRadius: 8 }} />
 
         <div style={{ flex: 1 }}>
-          <h2>{detalle.name}</h2>
-          <p style={{ color: "#555" }}>{detalle.description}</p>
+          <h2>{detalle.nombre}</h2>
           <p>Stock: {detalle.stock}</p>
-          <p style={{ fontWeight: 700 }}>Precio: ${detalle.price?.toLocaleString()}</p>
+          <p style={{ fontWeight: 700 }}>Precio: ${detalle.precio?.toLocaleString()}</p>
 
           {!addedQty ? (
             <ItemCount stock={detalle.stock} initial={1} onAdd={handleAdd} />
