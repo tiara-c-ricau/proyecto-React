@@ -13,22 +13,22 @@ const Navbar = () => {
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav me-auto">
           <li className="nav-item">
-            <NavLink to="/categoria/nuevos-ingresos" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Nuevos ingresos</NavLink>
+            <NavLink to="/category/nuevos-ingresos" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Nuevos ingresos</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/categoria/originales" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Originales</NavLink>
+            <NavLink to="/category/originales" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Originales</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/categoria/mas-vendidos" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Más vendidos</NavLink>
+            <NavLink to="/category/mas-vendidos" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Más vendidos</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/categoria/ofertas" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Ofertas</NavLink>
+            <NavLink to="/category/ofertas" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Ofertas</NavLink>
           </li>
         </ul>
 
         <ul className="navbar-nav">
           <li className="nav-item">
-            {/* Eliminamos NavLink exterior */}
+            {/* Elimino NavLink exterior */}
             <CartWidget count={getTotalItems()} />
           </li>
         </ul>

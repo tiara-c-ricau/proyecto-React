@@ -5,11 +5,6 @@ import { CartContext } from "../context/CartContext";
 const Item = ({ producto }) => {
   const { addItem } = useContext(CartContext);
   
-  
-const handleAdd = () => {  
-    addToCart(producto, 1);
-   };
-
 
   return (
     <div
@@ -21,17 +16,17 @@ const handleAdd = () => {
         textAlign: "center",
       }}
     >
-      <img
-        src={producto.img || "/default.jpg"} // fallback si no hay imagen
-        alt={producto.name || "Producto"}
+        { <img
+        src={producto.img || "/default.jpg"}
+        alt={producto.nombre || "Producto"}
         style={{ width: "100%", borderRadius: "8px" }}
-      />
+      /> }
 
-      <h3>{producto.name}</h3>
-      <p>{producto.description}</p>
+      <h3>{producto.nombre}</h3>
+      <p>{producto.category}</p>{/* 
+      <p>Stock: {producto.stock}</p> */}
+      <p>${producto.precio ?.toLocaleString()}</p>
       <p>Stock: {producto.stock}</p>
-      <p>${producto.price ? producto.price.toLocaleString() : "0" }</p>
-      <p>Stock: {producto.stock ?? 0}</p>
 
       <div className="d-flex flex-column gap-2 mt-3" style={{ display: "flex", justifyContent: "space-around", marginTop: "8px" }}>
 

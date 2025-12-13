@@ -4,8 +4,6 @@ import { getItems } from "../service/firebase";
 import ItemList from "./ItemList";
 import LoaderComponent from "./LoaderComponent";
 
-const normalizeCategory = (str) =>
-  str.toLowerCase().replace(/\s+/g, "-");
 
 const ItemListContainer = () => {
   const { categoryId } = useParams();
@@ -15,7 +13,7 @@ const ItemListContainer = () => {
   useEffect(() => {
     setLoading(true);
 
-    getItems(categoryId) // 🔥 ahora pide directo a Firestore
+    getItems(categoryId) 
       .then((res) => setProductos(res))
       .finally(() => setLoading(false));
   }, [categoryId]);
