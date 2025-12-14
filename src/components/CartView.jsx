@@ -17,12 +17,12 @@ return (
 <div>
 {cart.map(item => (
 <div key={item.id} style={{display:'flex', gap:'1rem', alignItems:'center', padding:'1rem'}}>
-<img src={item.img} alt={item.name} style={{width: '100px'}} />
+<img src={item.img} alt={item.nombre} style={{width: '100px'}} />
 <div style={{flex:1}}>
-<h5>{item.name}</h5>
-<p>Cantidad: {item.quantity}</p>
-<p>Precio unitario: ${item.price}</p>
-<p>Subtotal: ${item.quantity * item.price}</p>
+<h5>{item.nombre}</h5>
+<p>Cantidad: {item.cantidad}</p>
+<p>Precio unitario: ${item.precio}</p>
+<p>Subtotal: ${item.cantidad * item.precio}</p>
 </div>
 <div>
 <button className="btn btn-danger mb-2" onClick={() => removeItem(item.id)}>Eliminar</button>

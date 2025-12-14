@@ -4,7 +4,7 @@ import { CartContext } from "../context/CartContext";
 const CartPage = () => {
   const { cart, removeItem, clearCart, getTotalPrice } = useContext(CartContext);
 
-  const total = getTotalPrice();
+  const total = getTotalPrecio();
 
   return (
     <div style={{ padding: "20px" }}>
@@ -17,9 +17,9 @@ const CartPage = () => {
           <ul>
             {cart.map((item) => (
               <li key={item.id} style={{ marginBottom: "12px" }}>
-                <strong>{item.name}</strong> — {item.quantity} unid.
+                <strong>{item.nombre}</strong> — {item.quantity} unid.
                 <span style={{ marginLeft: "5px" }}>
-                  Subtotal: ${item.price * item.quantity}
+                  Subtotal: ${item.precio * item.quantity}
                 </span>
 
                 <button

@@ -7,8 +7,11 @@ function ItemDetailContainer() {
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const docRef = doc(db, "items", id);
-
+ 
+  
+  const handleAddToCart = (item, qty) => {
+    addItem(item, qty);
+  };
 
   useEffect(() => {
     setLoading(true);

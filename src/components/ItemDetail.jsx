@@ -6,8 +6,8 @@ const ItemDetail = ({ detalle }) => {
   const [addedQty, setAddedQty] = useState(0);
   const { addItem } = useContext(CartContext);
 
-  const handleAdd = (qty) => {
-    addItem(detalle, qty);
+  const handleAdd = (cantidad) => {
+    addItem(detalle, cantidad);
     setAddedQty(qty);
   };
 
@@ -15,7 +15,7 @@ const ItemDetail = ({ detalle }) => {
     <div className="card p-4" style={{ borderRadius: 8 }}>
       <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
       <img
-  src={`/${detalle.img}`}
+  src={detalle.img.startsWith("/") ? detalle.img : `/${detalle.img}`}
   alt={detalle.nombre}
   style={{ width: 300, borderRadius: 8 }}
 />
